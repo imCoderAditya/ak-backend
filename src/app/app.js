@@ -6,6 +6,7 @@ import authRoutes from "../routes/user_routes.js";
 import cors from "cors"; // Import cors
 
 const app = express();
+
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(cors());
 //Access Public Folder
 app.use(express.static("public"));
 
+// Swagger UI API docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes

@@ -11,10 +11,7 @@ const port = process.env.PORT;
 
 // Get the current filename and directory name
 const __filename = fileURLToPath(import.meta.url);
-logger.debug(`Index Name : ${__filename}`);
 const __dirname = path.dirname(__filename);
-logger.debug(`File Name : ${__dirname}`);
-logger.debug(`File Name : ${path.join(__dirname, "../public/welcome.html")}`);
 
 // Connect to the database
 connectDB().then(() => {

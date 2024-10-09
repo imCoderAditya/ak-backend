@@ -9,28 +9,24 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-// Get the current filename and directory name
+// Correct way to get __filename and __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Connect to the database
-connectDB().then(() => {
-  /**
-   * @swagger
-   * /:
-   *   get:
-   *     summary: Test endpoint
-   *     responses:
-   *       200:
-   *         description: Successful response
-   */
-  // Swagger UI setup
-  app.get("/", (req, res) => {
-    // res.sendFile(path.join(__dirname, "../public/welcome.html"));
-    res.json({ message: "Hellow Aditya" });
-  });
-});
+const startServer = async () => {
+  try {
+    connectDB();
 
-app.listen(port, () => {
-  logger.warn(`Server started on port http://localhost:${port}`);
-});
+    app.get("/", (req, res) => {
+      res.sendFile(path.join(__dirname, "../public/welcome.html"));
+    });
+
+    app.listen(port, () => {
+      logger.warn(`Server is running on port ${port}`);
+    });
+  } catch (error) {
+    logger.error("Failed to connect to the database:", error);
+  }
+};
+
+startServer();

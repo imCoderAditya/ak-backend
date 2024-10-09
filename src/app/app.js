@@ -11,13 +11,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//Access Public Folder
-app.use(express.static("public"));
-
 // Swagger UI API docs
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Routes
 app.use("/api/auth", authRoutes);
+
+//Access Public Folder
+app.use(express.static("public"));
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Test endpoint
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
 
 export default app;

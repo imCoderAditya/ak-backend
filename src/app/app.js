@@ -10,9 +10,15 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-
+const swaggerOptions = {
+  customCss: ".swagger-ui .topbar { display: none }",
+};
 // Swagger UI API docs
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, swaggerOptions)
+);
 
 // Routes
 app.use("/api/auth", authRoutes);

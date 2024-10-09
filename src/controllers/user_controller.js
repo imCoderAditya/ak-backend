@@ -35,7 +35,7 @@ export const register = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(401).json({ error: "Server error", details: error.message });
+    res.status(404).json({ error: "Server error", details: error.message });
   }
 };
 
@@ -64,6 +64,6 @@ export const login = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(401).json({ error: "Server error", details: error.message });
+    res.status(404).json({ error: "Server error", details: error.message });
   }
 };

@@ -9,24 +9,16 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-// Correct way to get __filename and __dirname in ES modules
+// Get the current filename and directory name
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const startServer = async () => {
-  try {
-    connectDB();
+connectDB().then(() => {
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "../public/welcome.html"));
+  });
+});
 
-    app.get("/", (req, res) => {
-      res.sendFile(path.join(__dirname, "../public/welcome.html"));
-    });
-
-    app.listen(port, () => {
-      logger.warn(`Server is running on port ${port}`);
-    });
-  } catch (error) {
-    logger.error("Failed to connect to the database:", error);
-  }
-};
-
-startServer();
+app.listen(port, () => {
+  logger.warn(`Server started on port http://localhost:${port}`);
+});

@@ -15,6 +15,16 @@ const __dirname = path.dirname(__filename);
 
 // Connect to the database
 connectDB().then(() => {
+  /**
+   * @swagger
+   * /:
+   *   get:
+   *     summary: Test endpoint
+   *     responses:
+   *       200:
+   *         description: Successful response
+   */
+  // Swagger UI setup
   app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/welcome.html"));
   });

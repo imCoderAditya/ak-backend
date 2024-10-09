@@ -14,17 +14,6 @@ app.use(express.static("public"));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Test endpoint
- *     responses:
- *       200:
- *         description: Successful response
- */
-// Swagger UI setup
-
 // Routes
 app.use("/api/auth", authRoutes);
 

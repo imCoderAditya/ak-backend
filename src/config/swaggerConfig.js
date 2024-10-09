@@ -9,11 +9,11 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "API documentation for user authentication",
     },
-    // servers: [
-    //   {
-    //     url: "http://localhost:4000/api", // Change this if needed
-    //   },
-    // ],
+    servers: [
+      {
+        url: "https://ak-backend-lime.vercel.app", // Change this if needed
+      },
+    ],
   },
   apis: ["./src/app/*.js", "./src/routes/*.js"], // Path to the API documentation comments
 };

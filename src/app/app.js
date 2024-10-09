@@ -3,10 +3,13 @@ import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpec from "../config/swaggerConfig.js";
 import authRoutes from "../routes/user_routes.js";
+import cors from "cors"; // Import cors
 
 const app = express();
+app.use(cors());
 
 // Middleware
+app.use(express.json());
 app.use(express.json());
 
 //Access Public Folder

@@ -6,7 +6,6 @@ import { fileURLToPath } from "url"; // Import URL utilities
 import connectDB from "./config/db.js"; // Ensure this is correct
 
 dotenv.config();
-
 const port = process.env.PORT;
 
 // Get the current filename and directory name

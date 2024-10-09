@@ -19,14 +19,5 @@ app.use("/api/auth", authRoutes);
 
 //Access Public Folder
 app.use(express.static("public"));
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Test endpoint
- *     responses:
- *       200:
- *         description: Successful response
- */
 
 export default app;

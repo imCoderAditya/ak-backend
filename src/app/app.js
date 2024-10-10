@@ -1,24 +1,16 @@
 // server.js or app.js
 import express from "express";
 import swaggerUi from "swagger-ui-express";
-import swaggerSpec from "../config/swaggerConfig.js";
+import swaggerDocument from "../config/swagger.json" assert { type: "json" };
 import authRoutes from "../routes/user_routes.js";
-import cors from "cors"; // Import cors
+import cors from "cors";
 
 const app = express();
 
 // Middleware
 app.use(express.json());
 app.use(cors());
-const swaggerOptions = {
-  customCss: ".swagger-ui .topbar { display: none }",
-};
-// Swagger UI API docs
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerSpec, swaggerOptions)
-);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
 app.use("/api/auth", authRoutes);

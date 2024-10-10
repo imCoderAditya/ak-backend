@@ -5,15 +5,6 @@ import swaggerDocument from "../config/swagger.json" assert { type: "json" };
 import authRoutes from "../routes/user_routes.js";
 import cors from "cors";
 // CORS configuration
-const corsOptions = {
-  origin: [
-    "http://localhost:4000",
-    "https://https://ak-backend-lime.vercel.app",
-  ], // Allowed origins
-  methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  credentials: true, // Enable set cookie
-};
 
 const app = express();
 

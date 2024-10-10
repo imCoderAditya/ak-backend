@@ -11,7 +11,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 // Enable CORS with options
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

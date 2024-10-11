@@ -5,11 +5,10 @@
         "version": "1.0.0",
         "description": "API documentation for user registration and login"
     },
-    "host": "localhost:4000",
+    "host": "ak-backend-slst.onrender.com",
     "basePath": "/api",
     "schemes": [
-        "https",
-        "http"
+        "https"
     ],
     "paths": {
         "/auth/register": {

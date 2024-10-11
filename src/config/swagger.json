@@ -74,7 +74,7 @@
                                 },
                                 "message": {
                                     "type": "string",
-                                    "example": "Request successful"
+                                    "example": "User registered successfully"
                                 },
                                 "data": {
                                     "type": "object",
@@ -105,10 +105,6 @@
                                                 "gender": {
                                                     "type": "string",
                                                     "example": "male"
-                                                },
-                                                "password": {
-                                                    "type": "string",
-                                                    "example": "$2a$10$WURW0JdCg.H3mCbNvZ1ITukE06HyU/CDAWoQojdfekuS1YUENrt5W"
                                                 },
                                                 "__v": {
                                                     "type": "integer",
@@ -173,7 +169,7 @@
                                 },
                                 "message": {
                                     "type": "string",
-                                    "example": "Request successful"
+                                    "example": "User logged in successfully"
                                 },
                                 "data": {
                                     "type": "object",
@@ -204,10 +200,6 @@
                                                 "gender": {
                                                     "type": "string",
                                                     "example": "male"
-                                                },
-                                                "password": {
-                                                    "type": "string",
-                                                    "example": "$2a$10$WURW0JdCg.H3mCbNvZ1ITukE06HyU/CDAWoQojdfekuS1YUENrt5W"
                                                 },
                                                 "__v": {
                                                     "type": "integer",

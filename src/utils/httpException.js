@@ -1,3 +1,4 @@
+import logger from "../utils/logger.js";
 class HttpException extends Error {
   constructor(statusCode, message) {
     super(message);
@@ -7,14 +8,14 @@ class HttpException extends Error {
 
 const handleHttpException = (error) => {
   if (error instanceof HttpException) {
-    console.error(
+    logger.error(
       `HTTP Exception: Status Code ${error.statusCode}, Message: ${error.message}`
     );
     // You can handle the exception further, log it, or customize the behavior.
   } else {
-    console.error("Unhandled Exception:", error);
+    logger.error("Unhandled Exception:", error);
     // Handle other types of exceptions if needed.
   }
 };
 
-module.exports = { HttpException, handleHttpException };
+export { HttpException, handleHttpException };

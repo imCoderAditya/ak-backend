@@ -1,5 +1,5 @@
 // error.js
-
+import logger from "../utils/logger.js";
 class HttpException extends Error {
   constructor(statusCode, message, details = null) {
     super(message);
@@ -52,16 +52,16 @@ const handleHttpException = (error, req, res, next) => {
 
   // Log the error stack trace only in development mode
   if (process.env.NODE_ENV === "development") {
-    console.error(`Error Stack: ${error.stack}`);
+    logger.error(`Error Stack: ${error.stack}`);
   } else {
-    console.error(`Error: ${error.message}`);
+    logger.error(`Error: ${error.message}`);
   }
 
   // Send the structured error response
   res.status(statusCode).json(response);
 };
 
-module.exports = {
+export {
   HttpException,
   BadRequestError,
   NotFoundError,

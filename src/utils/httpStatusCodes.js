@@ -1,4 +1,6 @@
-HttpStatusCodes = {
+// HttpStatusCodes.js
+
+const HttpStatusCodes = {
   OK: 200,
   CREATED: 201,
   NO_CONTENT: 204,
@@ -7,8 +9,8 @@ HttpStatusCodes = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
-  ALREDY_EXIT: 409,
-  INTERNAL_SERVER_ERROR: 404,
+  ALREADY_EXISTS: 409, // Fixed typo
+  INTERNAL_SERVER_ERROR: 500, // Fixed the status code to 500
 };
 
-module.exports = HttpStatusCodes;
+export default HttpStatusCodes;

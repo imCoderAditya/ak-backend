@@ -61,7 +61,7 @@ const sendResponseWithMetadata = (
   });
 };
 
-module.exports = {
+export {
   sendSuccessResponse,
   sendErrorResponse,
   sendPaginatedResponse,

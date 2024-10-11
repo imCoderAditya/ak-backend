@@ -7,10 +7,8 @@ import HttpStatusCodes from "../utils/httpStatusCodes.js";
 
 dotenv.config();
 
-// User registration function
 export const register = async (req, res, next) => {
   const { name, email, mobile, gender, password } = req.body;
-
   try {
     // Check if the email already exists
     const existingUser = await User.findOne({ email });
@@ -19,6 +17,7 @@ export const register = async (req, res, next) => {
     }
 
     // Create a new user
+
     const user = new User({ name, email, mobile, gender, password });
     await user.save();
 
@@ -29,12 +28,15 @@ export const register = async (req, res, next) => {
       { expiresIn: "1h" }
     );
 
+    // Create a user object without the password
+    const { password: userPassword, ...userWithoutPassword } = user.toObject();
+
     // Respond with the user details and token
     sendSuccessResponse(
       res,
       {
         accessToken,
-        user: user,
+        user: userWithoutPassword,
       },
       "User registered successfully",
       HttpStatusCodes.CREATED
@@ -72,12 +74,18 @@ export const login = async (req, res) => {
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
+    // Create a user object without the password
+    const { password: userPassword, ...userWithoutPassword } = user.toObject();
 
     // Use the success response utility to return the accessToken and user data
-    sendSuccessResponse(res, {
-      accessToken,
-      user: user,
-    });
+    sendSuccessResponse(
+      res,
+      {
+        accessToken,
+        user: userWithoutPassword,
+      },
+      "User Login successfully"
+    );
   } catch (error) {
     // Handle different error types
     if (error instanceof UnauthorizedError) {

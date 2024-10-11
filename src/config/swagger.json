@@ -5,10 +5,11 @@
         "version": "1.0.0",
         "description": "API documentation for user registration and login"
     },
-    "host": "ak-backend-lime.vercel.app",
+    "host": "localhost:4000",
     "basePath": "/api",
     "schemes": [
-        "https"
+        "https",
+        "http"
     ],
     "paths": {
         "/auth/register": {
@@ -68,24 +69,53 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "accessToken": {
-                                    "type": "string",
-                                    "example": "your_access_token"
+                                "success": {
+                                    "type": "boolean",
+                                    "example": true
                                 },
-                                "user": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request successful"
+                                },
+                                "data": {
                                     "type": "object",
                                     "properties": {
-                                        "name": {
-                                            "type": "string"
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "your_access_token"
                                         },
-                                        "email": {
-                                            "type": "string"
-                                        },
-                                        "mobile": {
-                                            "type": "string"
-                                        },
-                                        "gender": {
-                                            "type": "string"
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "6708f46bfae27f07a9acb462"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "johndoe@example.com"
+                                                },
+                                                "mobile": {
+                                                    "type": "string",
+                                                    "example": "+91234567890"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "example": "$2a$10$WURW0JdCg.H3mCbNvZ1ITukE06HyU/CDAWoQojdfekuS1YUENrt5W"
+                                                },
+                                                "__v": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -138,24 +168,53 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "accessToken": {
-                                    "type": "string",
-                                    "example": "your_access_token"
+                                "success": {
+                                    "type": "boolean",
+                                    "example": true
                                 },
-                                "user": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Request successful"
+                                },
+                                "data": {
                                     "type": "object",
                                     "properties": {
-                                        "name": {
-                                            "type": "string"
+                                        "accessToken": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDhmNDZiZmFlMjdmMDdhOWFjYjQ2MiIsIm5hbWUiOiJKb2huIERvZSIsImlhdCI6MTcyODY0MTgwMywiZXhwIjoxNzI4NjQ1NDAzfQ.zyP_gRhlDuIZ0-MAF_mB1sx-vQG00g5i8fSZ--80gUc"
                                         },
-                                        "email": {
-                                            "type": "string"
-                                        },
-                                        "mobile": {
-                                            "type": "string"
-                                        },
-                                        "gender": {
-                                            "type": "string"
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "6708f46bfae27f07a9acb462"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "johndoe@example.com"
+                                                },
+                                                "mobile": {
+                                                    "type": "string",
+                                                    "example": "+91234567890"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "password": {
+                                                    "type": "string",
+                                                    "example": "$2a$10$WURW0JdCg.H3mCbNvZ1ITukE06HyU/CDAWoQojdfekuS1YUENrt5W"
+                                                },
+                                                "__v": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            }
                                         }
                                     }
                                 }

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { BadRequestError, InternalServerError } from "../utils/error.js";
 import { sendSuccessResponse, sendErrorResponse } from "../utils/response.js";
 import HttpStatusCodes from "../utils/httpStatusCodes.js";
+
 dotenv.config();
 
 // User registration function
@@ -52,31 +53,47 @@ export const register = async (req, res, next) => {
     }
   }
 };
+
 // User login
 export const login = async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
+
+    // If the user is not found or the password doesn't match
     if (!user || !(await user.comparePassword(password))) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      throw new UnauthorizedError("Invalid credentials");
     }
 
+    // Generate a JWT token
     const accessToken = jwt.sign(
-      { id: user._id, username: user.username },
+      { id: user._id, name: user.name },
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );
 
-    // Response including user details and token
-    res.json({
+    // Use the success response utility to return the accessToken and user data
+    sendSuccessResponse(res, {
       accessToken,
-      user: {
-        id: user._id,
-        username: user.username,
-      },
+      user: user,
     });
   } catch (error) {
-    res.status(404).json({ error: "Server error", details: error.message });
+    // Handle different error types
+    if (error instanceof UnauthorizedError) {
+      sendErrorResponse(res, HttpStatusCodes.UNAUTHORIZED, error.message); // Send a structured 401 error response
+    } else {
+      // Catch other server errors
+      const internalError = new InternalServerError(
+        "Server error",
+        error.message
+      );
+      sendErrorResponse(
+        res,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+        internalError.message,
+        internalError.details
+      );
+    }
   }
 };

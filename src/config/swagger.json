@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "My API",
+        "title": "User Authentication API",
         "version": "1.0.0",
-        "description": "API Documentation"
+        "description": "API documentation for user registration and login"
     },
     "host": "ak-backend-lime.vercel.app",
     "basePath": "/api",
@@ -11,16 +11,6 @@
         "https"
     ],
     "paths": {
-        "/": {
-            "get": {
-                "summary": "List all users",
-                "responses": {
-                    "200": {
-                        "description": "Successful response"
-                    }
-                }
-            }
-        },
         "/auth/register": {
             "post": {
                 "summary": "Register a new user",
@@ -35,15 +25,38 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "username": {
-                                    "type": "string"
+                                "name": {
+                                    "type": "string",
+                                    "example": "John Doe"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "johndoe@example.com"
+                                },
+                                "mobile": {
+                                    "type": "string",
+                                    "example": "+1234567890"
+                                },
+                                "gender": {
+                                    "type": "string",
+                                    "enum": [
+                                        "male",
+                                        "female",
+                                        "other"
+                                    ],
+                                    "example": "male"
                                 },
                                 "password": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "securepassword"
                                 }
                             },
                             "required": [
-                                "username",
+                                "name",
+                                "email",
+                                "mobile",
+                                "gender",
                                 "password"
                             ]
                         }
@@ -51,7 +64,33 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "User registered successfully"
+                        "description": "User registered successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "accessToken": {
+                                    "type": "string",
+                                    "example": "your_access_token"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "mobile": {
+                                            "type": "string"
+                                        },
+                                        "gender": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bad request"
@@ -76,15 +115,18 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "username": {
-                                    "type": "string"
+                                "email": {
+                                    "type": "string",
+                                    "format": "email",
+                                    "example": "johndoe@example.com"
                                 },
                                 "password": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "example": "securepassword"
                                 }
                             },
                             "required": [
-                                "username",
+                                "email",
                                 "password"
                             ]
                         }
@@ -92,10 +134,36 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User logged in successfully"
+                        "description": "User logged in successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "accessToken": {
+                                    "type": "string",
+                                    "example": "your_access_token"
+                                },
+                                "user": {
+                                    "type": "object",
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "mobile": {
+                                            "type": "string"
+                                        },
+                                        "gender": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "401": {
-                        "description": "Unauthorized"
+                        "description": "Unauthorized - Invalid credentials"
                     },
                     "400": {
                         "description": "Bad request"

@@ -6,7 +6,7 @@ dotenv.config();
 
 // User registration
 export const register = async (req, res) => {
-  const { username, password } = req.body;
+  const { name, email, mobile, gender, password } = req.body;
 
   try {
     // Check if the username already exists
@@ -16,12 +16,12 @@ export const register = async (req, res) => {
     }
 
     // Create a new user
-    const user = new User({ username, password });
+    const user = new User({ name, email, mobile, gender, password });
     await user.save();
 
     // Generate a JWT token
     const accessToken = jwt.sign(
-      { id: user._id, username: user.username },
+      { id: user._id, name: user.name },
       process.env.SECRET_KEY,
       { expiresIn: "1h" }
     );

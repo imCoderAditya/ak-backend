@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "User Authentication API",
+        "title": "AK Sharma Backend",
         "version": "1.0.0",
-        "description": "API documentation for user registration and login"
+        "description": "API documentation"
     },
     "host": "ak-backend-4wac.onrender.com",
     "basePath": "/api",

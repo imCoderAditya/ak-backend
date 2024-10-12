@@ -5,13 +5,14 @@
         "version": "1.0.0",
         "description": "API documentation for user registration and login"
     },
-    "host": "ak-backend-slst.onrender.com",
+    "host": "localhost:4000",
     "basePath": "/api",
     "schemes": [
+        "http",
         "https"
     ],
     "paths": {
-        "/auth/register": {
+        "/register": {
             "post": {
                 "summary": "Register a new user",
                 "tags": [
@@ -126,7 +127,7 @@
                 }
             }
         },
-        "/auth/login": {
+        "/login": {
             "post": {
                 "summary": "Log in an existing user",
                 "tags": [
@@ -246,28 +247,137 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User found successfully",
+                        "description": "User logged in successfully",
                         "schema": {
-                            "$ref": "#/definitions/User"
-                        }
-                    },
-                    "404": {
-                        "description": "User Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": true
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User logged in successfully"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "6708f46bfae27f07a9acb462"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "johndoe@example.com"
+                                                },
+                                                "mobile": {
+                                                    "type": "string",
+                                                    "example": "+91234567890"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "__v": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     },
                     "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
+                        "description": "Unauthorized - Invalid credentials"
+                    },
+                    "400": {
+                        "description": "Bad request"
                     },
                     "500": {
-                        "description": "Internal Server Error",
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all user",
+                "description": "Retrieve a user ",
+                "operationId": "getAllUser",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully",
                         "schema": {
-                            "$ref": "#/definitions/Error"
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": true
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "User logged in successfully"
+                                },
+                                "data": {
+                                    "type": "object",
+                                    "properties": {
+                                        "user": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "6708f46bfae27f07a9acb462"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "John Doe"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "johndoe@example.com"
+                                                },
+                                                "mobile": {
+                                                    "type": "string",
+                                                    "example": "+91234567890"
+                                                },
+                                                "gender": {
+                                                    "type": "string",
+                                                    "example": "male"
+                                                },
+                                                "__v": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid credentials"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
             }

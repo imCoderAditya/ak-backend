@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { BadRequestError, InternalServerError } from "../utils/error.js";
 import { sendSuccessResponse, sendErrorResponse } from "../utils/response.js";
 import HttpStatusCodes from "../utils/httpStatusCodes.js";
-
+import logger from "../utils/logger.js";
 dotenv.config();
 
 export const register = async (req, res, next) => {
@@ -106,32 +106,81 @@ export const login = async (req, res) => {
   }
 };
 
-export const getByIdUser = async (req, res) => {
-  const userId = req.params.id;
-
+export const getAllUser = async (req, res) => {
   try {
-    const user = await User.findOne(userId);
+    const users = await User.find();
 
-    if (!user) {
-      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "User Not Found");
+    // Check if users exist
+    if (users.length === 0) {
+      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "No users found");
     }
-    sendSuccessResponse(res, user, "User found");
+
+    const userWithoutPassword = users.map((user) => {
+      const { password, ...userWithoutPassword } = user.toObject();
+      return userWithoutPassword;
+    });
+
+    sendSuccessResponse(res, userWithoutPassword, "User found successfully");
   } catch (error) {
-    // Handle different error types
+    logger.error("Error fetching user:", error);
+
     if (error instanceof UnauthorizedError) {
-      sendErrorResponse(res, HttpStatusCodes.UNAUTHORIZED, error.message); // Send a structured 401 error response
-    } else {
-      // Catch other server errors
-      const internalError = new InternalServerError(
-        "Server error",
-        error.message
-      );
       sendErrorResponse(
         res,
-        HttpStatusCodes.INTERNAL_SERVER_ERROR,
-        internalError.message,
-        internalError.details
+        HttpStatusCodes.UNAUTHORIZED,
+        "Unauthorized access"
       );
     }
+
+    // General server error fallback
+    sendErrorResponse(
+      res,
+      HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      "Internal Server Error",
+      error.message
+    );
+  }
+};
+
+// get By User Id
+export const getByIdUser = async (req, res) => {
+  const userId = req.params.id;
+  logger.debug(`Fetching user with ID: ${userId}`);
+
+  try {
+    // Query the database for the user by ID
+    const user = await User.findById(userId); // Use findById for querying _id directly
+
+    if (!user) {
+      // Return a 404 if the user is not found
+      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "User Not Found");
+    }
+
+    const { password: password, ...userWithoutPassword } = user.toObject();
+
+    // If user is found, return success response with user data
+    sendSuccessResponse(
+      res,
+      { user: userWithoutPassword },
+      "User found successfully"
+    );
+  } catch (error) {
+    logger.error("Error fetching user:", error);
+
+    // Handle specific error cases
+    if (error instanceof UnauthorizedError) {
+      sendErrorResponse(
+        res,
+        HttpStatusCodes.UNAUTHORIZED,
+        "Unauthorized access"
+      );
+    }
+    // General server error fallback
+    sendErrorResponse(
+      res,
+      HttpStatusCodes.INTERNAL_SERVER_ERROR,
+      "Internal Server Error",
+      error.message
+    );
   }
 };

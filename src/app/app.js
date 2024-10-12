@@ -16,7 +16,7 @@ app.use(cors());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
-app.use("/api/auth", authRoutes);
+app.use("/api", authRoutes);
 
 //Access Public Folder
 app.use(express.static("public"));

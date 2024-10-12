@@ -4,6 +4,7 @@ import {
   register,
   login,
   getByIdUser,
+  getAllUser,
 } from "../controllers/user_controller.js";
 
 const router = express.Router();
@@ -11,6 +12,8 @@ const router = express.Router();
 router.post("/register", register);
 
 router.post("/login", login);
+
+router.get("/users", getAllUser);
 
 router.get("/users/:id", getByIdUser);
 

@@ -32,7 +32,7 @@ export const register = async (req, res, next) => {
     const { password: userPassword, ...userWithoutPassword } = user.toObject();
 
     // Respond with the user details and token
-    sendSuccessResponse(
+    return sendSuccessResponse(
       res,
       {
         accessToken,
@@ -43,7 +43,7 @@ export const register = async (req, res, next) => {
     );
   } catch (error) {
     if (error instanceof BadRequestError) {
-      sendErrorResponse(res, HttpStatusCodes.BAD_REQUEST, error.message);
+      return sendErrorResponse(res, HttpStatusCodes.BAD_REQUEST, error.message);
     } else {
       // For unexpected errors, log them and send a generic server error response
       next(
@@ -78,7 +78,7 @@ export const login = async (req, res) => {
     const { password: userPassword, ...userWithoutPassword } = user.toObject();
 
     // Use the success response utility to return the accessToken and user data
-    sendSuccessResponse(
+    return sendSuccessResponse(
       res,
       {
         accessToken,
@@ -89,14 +89,18 @@ export const login = async (req, res) => {
   } catch (error) {
     // Handle different error types
     if (error instanceof UnauthorizedError) {
-      sendErrorResponse(res, HttpStatusCodes.UNAUTHORIZED, error.message); // Send a structured 401 error response
+      return sendErrorResponse(
+        res,
+        HttpStatusCodes.UNAUTHORIZED,
+        error.message
+      ); // Send a structured 401 error response
     } else {
       // Catch other server errors
       const internalError = new InternalServerError(
         "Server error",
         error.message
       );
-      sendErrorResponse(
+      return sendErrorResponse(
         res,
         HttpStatusCodes.INTERNAL_SERVER_ERROR,
         internalError.message,
@@ -112,7 +116,7 @@ export const getAllUser = async (req, res) => {
 
     // Check if users exist
     if (users.length === 0) {
-      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "No users found");
+      return sendSuccessResponse(res, [], "User not found");
     }
 
     const userWithoutPassword = users.map((user) => {
@@ -120,12 +124,16 @@ export const getAllUser = async (req, res) => {
       return userWithoutPassword;
     });
 
-    sendSuccessResponse(res, userWithoutPassword, "User found successfully");
+    return sendSuccessResponse(
+      res,
+      userWithoutPassword,
+      "User found successfully"
+    );
   } catch (error) {
     logger.error("Error fetching user:", error);
 
     if (error instanceof UnauthorizedError) {
-      sendErrorResponse(
+      return sendErrorResponse(
         res,
         HttpStatusCodes.UNAUTHORIZED,
         "Unauthorized access"
@@ -133,7 +141,7 @@ export const getAllUser = async (req, res) => {
     }
 
     // General server error fallback
-    sendErrorResponse(
+    return sendErrorResponse(
       res,
       HttpStatusCodes.INTERNAL_SERVER_ERROR,
       "Internal Server Error",
@@ -153,13 +161,17 @@ export const getByIdUser = async (req, res) => {
 
     if (!user) {
       // Return a 404 if the user is not found
-      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "User Not Found");
+      return sendErrorResponse(
+        res,
+        HttpStatusCodes.NOT_FOUND,
+        "User Not Found"
+      );
     }
 
     const { password: password, ...userWithoutPassword } = user.toObject();
 
     // If user is found, return success response with user data
-    sendSuccessResponse(
+    return sendSuccessResponse(
       res,
       { user: userWithoutPassword },
       "User found successfully"
@@ -169,14 +181,14 @@ export const getByIdUser = async (req, res) => {
 
     // Handle specific error cases
     if (error instanceof UnauthorizedError) {
-      sendErrorResponse(
+      return sendErrorResponse(
         res,
         HttpStatusCodes.UNAUTHORIZED,
         "Unauthorized access"
       );
     }
     // General server error fallback
-    sendErrorResponse(
+    return sendErrorResponse(
       res,
       HttpStatusCodes.INTERNAL_SERVER_ERROR,
       "Internal Server Error",

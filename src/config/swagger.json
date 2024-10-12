@@ -8,8 +8,8 @@
     "host": "ak-backend-4wac.onrender.com",
     "basePath": "/api",
     "schemes": [
-        "http",
-        "https"
+        "https",
+        "http"
     ],
     "paths": {
         "/register": {
@@ -119,7 +119,24 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Bad Request"
+                                },
+                                "details": {
+                                    "type": "string",
+                                    "example": "Detailed error information can go here"
+                                }
+                            }
+                        }
                     },
                     "500": {
                         "description": "Internal server error"
@@ -217,7 +234,24 @@
                         "description": "Unauthorized - Invalid credentials"
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Bad Request"
+                                },
+                                "details": {
+                                    "type": "string",
+                                    "example": "Detailed error information can go here"
+                                }
+                            }
+                        }
                     },
                     "500": {
                         "description": "Internal server error"
@@ -300,7 +334,24 @@
                         "description": "Unauthorized - Invalid credentials"
                     },
                     "400": {
-                        "description": "Bad request"
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Bad Request"
+                                },
+                                "details": {
+                                    "type": "string",
+                                    "example": "Detailed error information can go here"
+                                }
+                            }
+                        }
                     },
                     "500": {
                         "description": "Internal server error"
@@ -364,22 +415,6 @@
                                             }
                                         }
                                     }
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "No users found",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "success": {
-                                    "type": "boolean",
-                                    "example": false
-                                },
-                                "message": {
-                                    "type": "string",
-                                    "example": "No users found"
                                 }
                             }
                         }

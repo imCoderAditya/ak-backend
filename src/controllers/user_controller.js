@@ -105,3 +105,33 @@ export const login = async (req, res) => {
     }
   }
 };
+
+export const getByIdUser = async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const user = await User.findOne(userId);
+
+    if (!user) {
+      sendErrorResponse(res, HttpStatusCodes.NOT_FOUND, "User Not Found");
+    }
+    sendSuccessResponse(res, user, "User found");
+  } catch (error) {
+    // Handle different error types
+    if (error instanceof UnauthorizedError) {
+      sendErrorResponse(res, HttpStatusCodes.UNAUTHORIZED, error.message); // Send a structured 401 error response
+    } else {
+      // Catch other server errors
+      const internalError = new InternalServerError(
+        "Server error",
+        error.message
+      );
+      sendErrorResponse(
+        res,
+        HttpStatusCodes.INTERNAL_SERVER_ERROR,
+        internalError.message,
+        internalError.details
+      );
+    }
+  }
+};

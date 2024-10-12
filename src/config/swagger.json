@@ -321,7 +321,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User logged in successfully",
+                        "description": "Users found successfully",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -331,38 +331,36 @@
                                 },
                                 "message": {
                                     "type": "string",
-                                    "example": "User logged in successfully"
+                                    "example": "User found successfully"
                                 },
                                 "data": {
-                                    "type": "object",
-                                    "properties": {
-                                        "user": {
-                                            "type": "object",
-                                            "properties": {
-                                                "_id": {
-                                                    "type": "string",
-                                                    "example": "6708f46bfae27f07a9acb462"
-                                                },
-                                                "name": {
-                                                    "type": "string",
-                                                    "example": "John Doe"
-                                                },
-                                                "email": {
-                                                    "type": "string",
-                                                    "example": "johndoe@example.com"
-                                                },
-                                                "mobile": {
-                                                    "type": "string",
-                                                    "example": "+91234567890"
-                                                },
-                                                "gender": {
-                                                    "type": "string",
-                                                    "example": "male"
-                                                },
-                                                "__v": {
-                                                    "type": "integer",
-                                                    "example": 0
-                                                }
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "_id": {
+                                                "type": "string",
+                                                "example": "67090b9e3f39c2d04f8108af"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "John Doe"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "johndoe@example.com"
+                                            },
+                                            "mobile": {
+                                                "type": "string",
+                                                "example": "+1234567890"
+                                            },
+                                            "gender": {
+                                                "type": "string",
+                                                "example": "male"
+                                            },
+                                            "__v": {
+                                                "type": "integer",
+                                                "example": 0
                                             }
                                         }
                                     }
@@ -370,14 +368,57 @@
                             }
                         }
                     },
-                    "401": {
-                        "description": "Unauthorized - Invalid credentials"
+                    "404": {
+                        "description": "No users found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "No users found"
+                                }
+                            }
+                        }
                     },
-                    "400": {
-                        "description": "Bad request"
+                    "401": {
+                        "description": "Unauthorized access",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Unauthorized access"
+                                }
+                            }
+                        }
                     },
                     "500": {
-                        "description": "Internal server error"
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Internal Server Error"
+                                },
+                                "details": {
+                                    "type": "string",
+                                    "example": "Error details go here"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -399,22 +440,13 @@
                     "type": "string",
                     "example": "johndoe@example.com"
                 },
+                "gander": {
+                    "type": "string",
+                    "example": "male"
+                },
                 "mobile": {
                     "type": "string",
                     "example": "+9198346789"
-                }
-            }
-        },
-        "Error": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "example": "User Not Found"
-                },
-                "details": {
-                    "type": "string",
-                    "example": "Detailed error information."
                 }
             }
         }

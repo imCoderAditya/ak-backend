@@ -68,5 +68,4 @@ export {
   UnauthorizedError,
   ForbiddenError,
   InternalServerError,
-  handleHttpException,
 };

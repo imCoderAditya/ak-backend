@@ -12,6 +12,6 @@ router.post("/register", register);
 
 router.post("/login", login);
 
-router.get("/users/{id}", getByIdUser);
+router.get("/users/:id", getByIdUser);
 
 export default router;
